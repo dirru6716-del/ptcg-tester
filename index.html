@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -421,6 +422,7 @@ textarea:focus { outline: none; border-color: var(--accent); }
 </div>
 
 <!-- ════════════════ TAB 1: 輸入 ════════════════ -->
+
 <div class="panel active" id="panel-input">
   <div class="input-card">
     <h2>📋 從官網複製牌組清單，貼到下方</h2>
@@ -432,12 +434,13 @@ M4 011/083
 長尾火狐
 M4 012/083
 03
-..."></textarea>
-    <div style="margin-top:12px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="parseDeck()">✅ 解析牌組</button>
-      <button class="btn btn-secondary" onclick="clearAll()">🗑 清除</button>
-      <span id="parseStatus" style="font-size:0.8rem; color:var(--muted);"></span>
-    </div>
+…”></textarea>
+<div style="margin-top:12px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+<button class="btn btn-primary" onclick="parseDeck()">✅ 解析牌組</button>
+<button class="btn btn-secondary" onclick="clearAll()">🗑 清除</button>
+<span id="parseStatus" style="font-size:0.8rem; color:var(--muted);"></span>
+</div>
+
   </div>
   <div class="alert alert-error" id="alertError"></div>
   <div id="loadingDB" class="loading" style="display:none">
@@ -447,12 +450,14 @@ M4 012/083
 </div>
 
 <!-- ════════════════ TAB 2: 總覽 ════════════════ -->
+
 <div class="panel" id="panel-overview">
   <div class="status-bar" id="statusBar"></div>
   <div id="deckOverview"></div>
 </div>
 
 <!-- ════════════════ TAB 3: 模擬 ════════════════ -->
+
 <div class="panel" id="panel-sim">
   <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
     <button class="btn btn-primary" onclick="drawOpeningHand()">🔀 重新洗牌 / 起手牌</button>
@@ -489,6 +494,7 @@ M4 012/083
 </div>
 
 <!-- ════════════════ TAB 4: 機率 ════════════════ -->
+
 <div class="panel" id="panel-prob">
   <div class="input-card">
     <h2>📊 起手牌機率計算（超幾何分佈）</h2>
@@ -511,7 +517,7 @@ M4 012/083
 // ══════════════════════════════════════════
 // 全域狀態
 // ══════════════════════════════════════════
-const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/129Qa5N3BwHoTuTh8WeKAdg3BFlNITt4I47b8WQOMyAc/export?format=csv';
+const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/129Qa5N3BwHoTuTh8WeKAdg3BFlNITt4I47b8WQOMyAc/gviz/tq?tqx=out:csv';
 
 let cardDB = [];       // 全部卡牌資料庫
 let deckList = [];     // [{name, count, cardType, imageUrl, ...}]
@@ -937,5 +943,6 @@ function clearAll() {
   deckList = [];
 }
 </script>
+
 </body>
 </html>
