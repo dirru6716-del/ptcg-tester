@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -8,400 +7,104 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0f1117;
-  --bg2: #1a1d27;
-  --bg3: #22263a;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.15);
-  --text: #e8eaf0;
-  --muted: #7a7f9a;
-  --accent: #e63b3b;
-  --accent2: #f5a623;
-  --blue: #4a90e2;
-  --green: #27ae60;
-  --purple: #8e44ad;
-  --card-w: 80px;
-  --card-h: 112px;
+  --bg:#0f1117; --bg2:#1a1d27; --bg3:#22263a;
+  --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.15);
+  --text:#e8eaf0; --muted:#7a7f9a;
+  --accent:#e63b3b; --accent2:#f5a623;
+  --blue:#4a90e2; --green:#27ae60;
+  --card-w:80px; --card-h:112px;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: 'Noto Sans TC', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
-/* ── HEADER ── */
-header {
-  background: linear-gradient(135deg, #1a0a0a 0%, #1a1d27 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-header h1 {
-  font-family: 'Zen Maru Gothic', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 1px;
-}
-header .subtitle { font-size: 0.75rem; color: var(--muted); }
-.pokeball {
-  width: 32px; height: 32px;
-  background: conic-gradient(var(--accent) 180deg, #fff 180deg);
-  border-radius: 50%;
-  border: 2px solid #fff;
-  position: relative;
-  flex-shrink: 0;
-}
-.pokeball::after {
-  content:'';
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width:10px; height:10px;
-  border-radius:50%;
-  background:#fff;
-  border:2px solid #333;
-}
-/* ── TABS ── */
-.tabs {
-  display: flex;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  padding: 0 24px;
-}
-.tab {
-  padding: 12px 20px;
-  font-size: 0.85rem;
-  color: var(--muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-.tab:hover:not(.active) { color: var(--text); }
-/* ── PANELS ── */
-.panel { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
-.panel.active { display: block; }
-/* ── INPUT AREA ── */
-.input-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-.input-card h2 { font-size: 0.9rem; color: var(--muted); margin-bottom: 12px; font-weight: 500; }
-textarea {
-  width: 100%;
-  height: 220px;
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 12px;
-  color: var(--text);
-  font-family: monospace;
-  font-size: 0.82rem;
-  resize: vertical;
-  line-height: 1.6;
-}
-textarea:focus { outline: none; border-color: var(--accent); }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  font-size: 0.85rem;
-  font-family: 'Noto Sans TC', sans-serif;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-weight: 500;
-}
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { background: #c0392b; }
-.btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border2); }
-.btn-secondary:hover { background: var(--border2); }
-.btn-blue { background: var(--blue); color: #fff; }
-.btn-blue:hover { background: #2980b9; }
-.btn-green { background: var(--green); color: #fff; }
-.btn-green:hover { background: #219a52; }
-.btn-sm { padding: 6px 12px; font-size: 0.78rem; }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
-/* ── STATUS BAR ── */
-.status-bar {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-.stat-pill {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.stat-pill .dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-}
-.dot-pokemon { background: #e74c3c; }
-.dot-trainer { background: #3498db; }
-.dot-energy  { background: #f39c12; }
-/* ── DECK GRID ── */
-.section-label {
-  font-size: 0.78rem;
-  color: var(--muted);
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin: 20px 0 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-.cards-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.card-item {
-  position: relative;
-  width: var(--card-w);
-  cursor: default;
-  transition: transform 0.15s;
-}
-.card-item:hover { transform: scale(1.08); z-index: 10; }
-.card-img {
-  width: var(--card-w);
-  height: var(--card-h);
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid var(--border2);
-  background: var(--bg3);
-}
-.card-img.error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg3);
-  font-size: 0.6rem;
-  color: var(--muted);
-  text-align: center;
-  padding: 4px;
-}
-.card-count {
-  position: absolute;
-  top: 4px; right: 4px;
-  background: rgba(0,0,0,0.75);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.card-name {
-  font-size: 0.62rem;
-  color: var(--muted);
-  text-align: center;
-  margin-top: 3px;
-  line-height: 1.2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-/* ── SIMULATION ── */
-.sim-layout {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 20px;
-}
-@media (max-width: 768px) {
-  .sim-layout { grid-template-columns: 1fr; }
-}
-.hand-area {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-}
-.hand-area h3 {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.hand-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  min-height: 130px;
-}
-.side-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.info-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-}
-.info-card h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 10px; }
-.deck-counter {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text);
-  font-family: 'Zen Maru Gothic', sans-serif;
-  text-align: center;
-  line-height: 1;
-}
-.deck-counter small { font-size: 0.8rem; color: var(--muted); display: block; margin-top: 4px; }
-.turn-badge {
-  background: var(--accent);
-  color: #fff;
-  border-radius: 20px;
-  padding: 4px 14px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 8px;
-}
-/* ── SUPPORTER ACTIONS ── */
-.supporter-actions { display: flex; flex-direction: column; gap: 6px; }
-.supporter-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 0.78rem;
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Noto Sans TC', sans-serif;
-}
-.supporter-btn:hover { background: var(--border2); border-color: var(--accent); }
-.supporter-btn .effect { font-size: 0.7rem; color: var(--muted); }
-.n-input {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.n-input input {
-  width: 50px;
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  padding: 4px 8px;
-  color: var(--text);
-  font-size: 0.8rem;
-  text-align: center;
-}
-.n-input input:focus { outline: none; border-color: var(--accent); }
-/* ── ALERT ── */
-.alert {
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.82rem;
-  margin-bottom: 16px;
-  display: none;
-}
-.alert.show { display: block; }
-.alert-warning { background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.3); color: var(--accent2); }
-.alert-success { background: rgba(39,174,96,0.15); border: 1px solid rgba(39,174,96,0.3); color: var(--green); }
-.alert-error   { background: rgba(231,76,60,0.15);  border: 1px solid rgba(231,76,60,0.3);  color: #e74c3c; }
-/* ── PROBABILITY ── */
-.prob-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-.prob-table th {
-  text-align: left;
-  color: var(--muted);
-  font-weight: 500;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border);
-}
-.prob-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
-.prob-bar-wrap { height: 6px; background: var(--bg3); border-radius: 3px; width: 80px; display: inline-block; vertical-align: middle; margin-left: 8px; }
-.prob-bar { height: 6px; background: var(--accent); border-radius: 3px; transition: width 0.4s; }
-/* ── LOADING ── */
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-.spinner {
-  width: 32px; height: 32px;
-  border: 3px solid var(--border2);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 12px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-/* ── HAND CARD HIGHLIGHT ── */
-.card-item.in-hand { --card-h: 112px; }
-.card-item.supporter-active .card-img {
-  border: 2px solid var(--accent2);
-  box-shadow: 0 0 8px rgba(245,166,35,0.4);
-}
-/* ── MULIGAN notice ── */
-.mulligan-notice {
-  background: rgba(231,76,60,0.12);
-  border: 1px solid rgba(231,76,60,0.25);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 0.78rem;
-  color: #e74c3c;
-  margin-top: 8px;
-  display: none;
-}
-.mulligan-notice.show { display: block; }
-/* ── TOOLTIP ── */
-.tooltip-wrap { position: relative; }
-.tooltip-wrap:hover .tooltip-box { display: block; }
-.tooltip-box {
-  display: none;
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #111;
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 0.72rem;
-  color: var(--text);
-  width: 160px;
-  z-index: 100;
-  line-height: 1.5;
-  pointer-events: none;
-}
-.tooltip-box .tname { font-weight: 700; color: var(--accent2); margin-bottom: 2px; }
-.tooltip-box .ttype { color: var(--muted); }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,#1a0a0a,#1a1d27);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;}
+header h1{font-family:'Zen Maru Gothic',sans-serif;font-size:1.2rem;font-weight:700;color:var(--accent);}
+header .sub{font-size:.72rem;color:var(--muted);}
+.pokeball{width:30px;height:30px;background:conic-gradient(var(--accent) 180deg,#fff 180deg);border-radius:50%;border:2px solid #fff;position:relative;flex-shrink:0;}
+.pokeball::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #333;}
+.tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 16px;overflow-x:auto;}
+.tab{padding:11px 16px;font-size:.82rem;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab:hover:not(.active){color:var(--text);}
+.panel{display:none;padding:20px;max-width:1100px;margin:0 auto;}
+.panel.active{display:block;}
+/* cards */
+.icard{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;}
+.icard h2{font-size:.85rem;color:var(--muted);margin-bottom:12px;font-weight:500;}
+/* input */
+.code-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.code-input{flex:1;min-width:200px;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-size:.9rem;font-family:'Noto Sans TC',sans-serif;}
+.code-input:focus{outline:none;border-color:var(--accent);}
+.code-input::placeholder{color:var(--muted);}
+/* paste area */
+textarea{width:100%;height:180px;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:12px;color:var(--text);font-family:monospace;font-size:.8rem;resize:vertical;line-height:1.6;}
+textarea:focus{outline:none;border-color:var(--accent);}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;border:none;font-size:.83rem;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s;font-weight:500;}
+.btn-primary{background:var(--accent);color:#fff;} .btn-primary:hover{background:#c0392b;}
+.btn-secondary{background:var(--bg3);color:var(--text);border:1px solid var(--border2);} .btn-secondary:hover{background:var(--border2);}
+.btn-blue{background:var(--blue);color:#fff;} .btn-blue:hover{background:#2980b9;}
+.btn-green{background:var(--green);color:#fff;} .btn-green:hover{background:#219a52;}
+.btn-sm{padding:6px 12px;font-size:.76rem;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+/* status */
+.status-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+.stat-pill{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:.78rem;display:flex;align-items:center;gap:5px;}
+.dot{width:7px;height:7px;border-radius:50%;}
+.dot-p{background:#e74c3c;} .dot-t{background:#3498db;} .dot-e{background:#f39c12;}
+/* section */
+.sec-label{font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:18px 0 8px;display:flex;align-items:center;gap:8px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.cards-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+/* card tile */
+.ctile{position:relative;width:var(--card-w);cursor:default;transition:transform .15s;}
+.ctile:hover{transform:scale(1.08);z-index:10;}
+.cimg{width:var(--card-w);height:var(--card-h);object-fit:cover;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);}
+.cimg-err{width:var(--card-w);height:var(--card-h);display:flex;align-items:center;justify-content:center;background:var(--bg3);font-size:.55rem;color:var(--muted);text-align:center;padding:4px;border-radius:6px;border:1px solid var(--border2);}
+.ccount{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.75);color:#fff;font-size:.68rem;font-weight:700;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.cname{font-size:.6rem;color:var(--muted);text-align:center;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+/* sim */
+.sim-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;}
+@media(max-width:700px){.sim-layout{grid-template-columns:1fr;}}
+.hand-area{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.hand-area h3{font-size:.82rem;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.hand-cards{display:flex;flex-wrap:wrap;gap:7px;min-height:125px;}
+.side{display:flex;flex-direction:column;gap:10px;}
+.info-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.info-card h3{font-size:.82rem;color:var(--muted);margin-bottom:8px;}
+.deck-counter{font-size:2.2rem;font-weight:700;color:var(--text);font-family:'Zen Maru Gothic',sans-serif;text-align:center;line-height:1;}
+.turn-badge{background:var(--accent);color:#fff;border-radius:20px;padding:4px 12px;font-size:.78rem;font-weight:700;text-align:center;margin-bottom:6px;}
+/* supporter */
+.sup-btn{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;padding:7px 10px;font-size:.76rem;color:var(--text);cursor:pointer;transition:all .2s;font-family:'Noto Sans TC',sans-serif;margin-bottom:5px;width:100%;}
+.sup-btn:hover{background:var(--border2);border-color:var(--accent);}
+.sup-eff{font-size:.68rem;color:var(--muted);}
+.n-row{display:flex;gap:6px;align-items:center;margin-top:4px;}
+.n-input{width:48px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:4px 7px;color:var(--text);font-size:.78rem;text-align:center;}
+.n-input:focus{outline:none;border-color:var(--accent);}
+/* alert */
+.alert{padding:9px 13px;border-radius:8px;font-size:.8rem;margin-bottom:14px;display:none;}
+.alert.show{display:block;}
+.alert-warn{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);color:var(--accent2);}
+.alert-err{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);color:#e74c3c;}
+.alert-ok{background:rgba(39,174,96,.12);border:1px solid rgba(39,174,96,.3);color:var(--green);}
+/* prob */
+.prob-table{width:100%;border-collapse:collapse;font-size:.78rem;}
+.prob-table th{text-align:left;color:var(--muted);font-weight:500;padding:5px 0;border-bottom:1px solid var(--border);}
+.prob-table td{padding:7px 0;border-bottom:1px solid var(--border);vertical-align:middle;}
+.pbar-wrap{height:5px;background:var(--bg3);border-radius:3px;width:70px;display:inline-block;vertical-align:middle;margin-left:7px;}
+.pbar{height:5px;background:var(--accent);border-radius:3px;}
+/* loading */
+.loading{text-align:center;padding:36px;color:var(--muted);font-size:.82rem;}
+.spinner{width:28px;height:28px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* highlight supporter in hand */
+.ctile.sup-glow .cimg{border:2px solid var(--accent2);box-shadow:0 0 8px rgba(245,166,35,.4);}
+/* log */
+#simLog{font-size:.73rem;color:var(--muted);max-height:180px;overflow-y:auto;line-height:1.9;}
+/* divider */
+.divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
+/* or separator */
+.or-sep{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--muted);font-size:.78rem;}
+.or-sep::before,.or-sep::after{content:'';flex:1;height:1px;background:var(--border);}
 </style>
 </head>
 <body>
@@ -410,22 +113,37 @@ textarea:focus { outline: none; border-color: var(--accent); }
   <div class="pokeball"></div>
   <div>
     <h1>PTCG 牌組測試工具</h1>
-    <div class="subtitle">貼上官網牌組清單，開始模擬</div>
+    <div class="sub">輸入序號或貼上牌組清單，開始模擬</div>
   </div>
 </header>
 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('input')">📋 牌組輸入</div>
-  <div class="tab" onclick="switchTab('overview')" id="tab-overview">🃏 牌組總覽</div>
-  <div class="tab" onclick="switchTab('sim')" id="tab-sim">🎮 對戰模擬</div>
-  <div class="tab" onclick="switchTab('prob')" id="tab-prob">📊 機率計算</div>
+  <div class="tab" onclick="switchTab('overview')">🃏 牌組總覽</div>
+  <div class="tab" onclick="switchTab('sim')">🎮 對戰模擬</div>
+  <div class="tab" onclick="switchTab('prob')">📊 機率計算</div>
 </div>
 
-<!-- ════════════════ TAB 1: 輸入 ════════════════ -->
-
+<!-- ═══ TAB 1: 輸入 ═══ -->
 <div class="panel active" id="panel-input">
-  <div class="input-card">
-    <h2>📋 從官網複製牌組清單，貼到下方</h2>
+
+  <!-- 方法A：代碼查詢 -->
+  <div class="icard">
+    <h2>🔍 方法 A：輸入官網牌組序號</h2>
+    <div class="code-row">
+      <input class="code-input" id="codeInput" placeholder="例如：YZVqij-VbgcOn-TLxhEA" maxlength="30">
+      <button class="btn btn-primary" onclick="fetchDeck()">查詢</button>
+    </div>
+    <div style="margin-top:8px;font-size:.72rem;color:var(--muted);">
+      從 asia.pokemon-card.com/tw/deck-build/recipe/ 的網址複製序號
+    </div>
+  </div>
+
+  <div class="or-sep">或</div>
+
+  <!-- 方法B：貼上清單 -->
+  <div class="icard">
+    <h2>📋 方法 B：從官網複製牌組清單貼上</h2>
     <textarea id="deckInput" placeholder="寶可夢卡(22)
 
 火狐狸
@@ -434,515 +152,502 @@ M4 011/083
 長尾火狐
 M4 012/083
 03
-…”></textarea>
-<div style="margin-top:12px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-<button class="btn btn-primary" onclick="parseDeck()">✅ 解析牌組</button>
-<button class="btn btn-secondary" onclick="clearAll()">🗑 清除</button>
-<span id="parseStatus" style="font-size:0.8rem; color:var(--muted);"></span>
+..."></textarea>
+    <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="parsePaste()">✅ 解析清單</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('deckInput').value=''">🗑 清除</button>
+      <span id="parseStatus" style="font-size:.78rem;color:var(--muted);"></span>
+    </div>
+  </div>
+
+  <div class="alert alert-err" id="alertErr"></div>
+  <div id="loadingDB" class="loading" style="display:none"><div class="spinner"></div>正在載入卡牌資料庫…</div>
+  <div id="loadingFetch" class="loading" style="display:none"><div class="spinner"></div>正在查詢官網牌組…</div>
 </div>
 
-  </div>
-  <div class="alert alert-error" id="alertError"></div>
-  <div id="loadingDB" class="loading" style="display:none">
-    <div class="spinner"></div>
-    正在載入卡牌資料庫...
-  </div>
-</div>
-
-<!-- ════════════════ TAB 2: 總覽 ════════════════ -->
-
+<!-- ═══ TAB 2: 總覽 ═══ -->
 <div class="panel" id="panel-overview">
   <div class="status-bar" id="statusBar"></div>
   <div id="deckOverview"></div>
 </div>
 
-<!-- ════════════════ TAB 3: 模擬 ════════════════ -->
-
+<!-- ═══ TAB 3: 模擬 ═══ -->
 <div class="panel" id="panel-sim">
-  <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
-    <button class="btn btn-primary" onclick="drawOpeningHand()">🔀 重新洗牌 / 起手牌</button>
+  <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+    <button class="btn btn-primary" onclick="drawOpeningHand()">🔀 洗牌 / 起手牌</button>
     <button class="btn btn-blue" onclick="drawOne()" id="btnDraw">➕ 抽一張</button>
     <button class="btn btn-secondary btn-sm" onclick="resetSim()">↩ 重置</button>
   </div>
-  <div class="alert alert-warning" id="alertMulligan"></div>
+  <div class="alert alert-warn" id="alertMulligan"></div>
   <div class="sim-layout">
     <div>
       <div class="hand-area">
         <h3>
           <span>手牌</span>
-          <span id="handCount" style="color:var(--text); font-weight:700;">0 張</span>
+          <span id="handCount" style="color:var(--text);font-weight:700;">0 張</span>
         </h3>
         <div class="hand-cards" id="handCards"></div>
       </div>
     </div>
-    <div class="side-panel">
+    <div class="side">
       <div class="info-card" style="text-align:center;">
         <div class="turn-badge" id="turnBadge">第 0 回合</div>
         <div class="deck-counter" id="deckCounter">--</div>
-        <small style="color:var(--muted); font-size:0.75rem;">牌庫剩餘</small>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:4px;">牌庫剩餘</div>
       </div>
       <div class="info-card" id="supporterPanel" style="display:none;">
         <h3>⚡ 可發動的支援者</h3>
-        <div class="supporter-actions" id="supporterActions"></div>
+        <div id="supporterActions"></div>
       </div>
       <div class="info-card">
         <h3>📜 回合紀錄</h3>
-        <div id="simLog" style="font-size:0.75rem; color:var(--muted); max-height:200px; overflow-y:auto; line-height:1.8;"></div>
+        <div id="simLog"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════════════ TAB 4: 機率 ════════════════ -->
-
+<!-- ═══ TAB 4: 機率 ═══ -->
 <div class="panel" id="panel-prob">
-  <div class="input-card">
-    <h2>📊 起手牌機率計算（超幾何分佈）</h2>
-    <p style="font-size:0.8rem; color:var(--muted); margin-bottom:16px;">計算起手 7 張中，抽到指定張數以上的機率</p>
-    <table class="prob-table" id="probTable">
-      <thead>
-        <tr>
-          <th>卡牌名稱</th>
-          <th>牌組張數</th>
-          <th>至少抽到 1 張</th>
-          <th>至少抽到 2 張</th>
-        </tr>
-      </thead>
+  <div class="icard">
+    <h2>📊 起手牌機率計算（超幾何分佈，起手 7 張）</h2>
+    <table class="prob-table">
+      <thead><tr><th>卡牌名稱</th><th>張數</th><th>至少抽到 1 張</th><th>至少抽到 2 張</th></tr></thead>
       <tbody id="probBody"></tbody>
     </table>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════
-// 全域狀態
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// 設定
+// ═══════════════════════════════════════════════
 const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/129Qa5N3BwHoTuTh8WeKAdg3BFlNITt4I47b8WQOMyAc/gviz/tq?tqx=out:csv';
+const PROXY      = 'https://corsproxy.io/?';
 
-let cardDB = [];       // 全部卡牌資料庫
-let deckList = [];     // [{name, count, cardType, imageUrl, ...}]
-let drawPile = [];     // 洗好的牌庫（含重複）
-let hand = [];         // 手牌
-let turn = 0;
-let dbLoaded = false;
-
-// 特殊支援者效果定義
-const SPECIAL_SUPPORTERS = {
-  '莉莉艾的決意': { label: '莉莉艾的決意', effect: '手牌洗回牌庫，重新抽 6 張', action: (n) => reshuffleAndDraw(6) },
-  '裁判':         { label: '裁判',           effect: '手牌洗回牌庫，重新抽 4 張', action: (n) => reshuffleAndDraw(4) },
-  'N的謀劃':      { label: 'N 的謀劃',       effect: '手牌洗回牌庫，重新抽 N 張', action: (n) => reshuffleAndDraw(parseInt(n)||4), needsN: true },
+// 特殊支援者
+const SPECIAL_SUP = {
+  '莉莉艾的決意': { label:'莉莉艾的決意', eff:'手牌洗回牌庫，重新抽 6 張', fn:()=>reshuffleAndDraw(6,'莉莉艾的決意') },
+  '裁判':         { label:'裁判',           eff:'手牌洗回牌庫，重新抽 4 張', fn:()=>reshuffleAndDraw(4,'裁判') },
+  'N的謀劃':      { label:'N 的謀劃',       eff:'手牌洗回牌庫，重新抽 N 張', needsN:true },
 };
 
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// 狀態
+// ═══════════════════════════════════════════════
+let cardDB=[], deckList=[], drawPile=[], hand=[], turn=0, dbLoaded=false;
+
+// ═══════════════════════════════════════════════
 // 載入卡牌資料庫
-// ══════════════════════════════════════════
-async function loadCardDB() {
-  if (dbLoaded) return true;
-  document.getElementById('loadingDB').style.display = 'block';
-  try {
+// ═══════════════════════════════════════════════
+async function loadCardDB(){
+  if(dbLoaded) return true;
+  show('loadingDB');
+  try{
     const res = await fetch(SHEETS_URL);
-    if (!res.ok) throw new Error('無法讀取 Google Sheets');
+    if(!res.ok) throw new Error('HTTP '+res.status);
     const text = await res.text();
     cardDB = parseCSV(text);
     dbLoaded = true;
-    document.getElementById('loadingDB').style.display = 'none';
+    hide('loadingDB');
     return true;
-  } catch(e) {
-    document.getElementById('loadingDB').style.display = 'none';
-    showError('❌ 無法載入卡牌資料庫：' + e.message);
+  }catch(e){
+    hide('loadingDB');
+    showErr('❌ 無法載入卡牌資料庫：'+e.message);
     return false;
   }
 }
 
-function parseCSV(text) {
-  const lines = text.split('\n');
-  const headers = splitCSVLine(lines[0]);
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
-    const vals = splitCSVLine(lines[i]);
-    const obj = {};
-    headers.forEach((h, idx) => { obj[h.trim()] = (vals[idx] || '').trim(); });
+function parseCSV(text){
+  text = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const rows=[], lines=text.split('\n');
+  // 用 quoted CSV 解析
+  function splitLine(line){
+    const cols=[]; let cur='', inQ=false;
+    for(let i=0;i<line.length;i++){
+      const c=line[i];
+      if(c==='"'){ if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ; }
+      else if(c===','&&!inQ){cols.push(cur);cur='';}
+      else cur+=c;
+    }
+    cols.push(cur);
+    return cols.map(c=>c.trim().replace(/^"|"$/g,''));
+  }
+  const hdrs=splitLine(lines[0]);
+  for(let i=1;i<lines.length;i++){
+    if(!lines[i].trim()) continue;
+    const vals=splitLine(lines[i]);
+    const obj={};
+    hdrs.forEach((h,idx)=>{ obj[h]=(vals[idx]||'').trim(); });
     rows.push(obj);
   }
   return rows;
 }
 
-function splitCSVLine(line) {
-  const result = [];
-  let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') { inQ = !inQ; }
-    else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
-    else { cur += c; }
+// ═══════════════════════════════════════════════
+// 方法A：代碼查詢官網
+// ═══════════════════════════════════════════════
+async function fetchDeck(){
+  const code = document.getElementById('codeInput').value.trim();
+  if(!code){ showErr('請輸入牌組序號'); return; }
+  if(!/^[A-Za-z0-9]+-[A-Za-z0-9]+-[A-Za-z0-9]+$/.test(code)){
+    showErr('格式錯誤，應為 xxxxxx-xxxxxx-xxxxxx'); return;
   }
-  result.push(cur);
-  return result;
+
+  hideErr();
+  const ok = await loadCardDB();
+  if(!ok) return;
+
+  show('loadingFetch');
+  document.querySelector('[onclick="fetchDeck()"]').disabled=true;
+
+  try{
+    const url = `https://asia.pokemon-card.com/tw/deck-build/recipe/${code}/`;
+    const proxyUrl = PROXY + encodeURIComponent(url);
+    const resp = await fetch(proxyUrl);
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    const html = await resp.text();
+
+    const cards = parseTWDeckHTML(html);
+    if(!cards.length) throw new Error('找不到卡牌，請確認序號是否正確');
+
+    // 組成 deckList
+    buildDeckListFromFetch(cards);
+    const total = deckList.reduce((s,c)=>s+c.count,0);
+    document.getElementById('parseStatus').textContent = `✅ 序號查詢成功：${deckList.length} 種，共 ${total} 張`;
+
+    finishParse();
+  }catch(e){
+    showErr('❌ 查詢失敗：'+e.message+'（請確認序號正確，或改用方法B）');
+  }finally{
+    hide('loadingFetch');
+    document.querySelector('[onclick="fetchDeck()"]').disabled=false;
+  }
 }
 
-// ══════════════════════════════════════════
-// 解析牌組清單
-// ══════════════════════════════════════════
-async function parseDeck() {
-  const raw = document.getElementById('deckInput').value.trim();
-  if (!raw) { showError('請先貼上牌組清單'); return; }
+function parseTWDeckHTML(html){
+  const doc = new DOMParser().parseFromString(html,'text/html');
+  const cards=[];
+  const seenSections=new Set();
 
-  const ok = await loadCardDB();
-  if (!ok) return;
+  doc.body.querySelectorAll('h3').forEach(h3=>{
+    const title=h3.textContent.trim();
+    const m=title.match(/^(.+?)[（(]\d+[)）]/);
+    if(!m) return;
+    const sec=m[1].trim();
+    if(seenSections.has(sec)) return;
+    seenSections.add(sec);
 
-  hideError();
-  deckList = [];
+    const ul=h3.nextElementSibling;
+    if(!ul||ul.tagName!=='UL') return;
 
-  const lines = raw.split('\n').map(l => l.trim()).filter(l => l);
-  let i = 0;
+    ul.querySelectorAll('li').forEach(li=>{
+      const a=li.querySelector('a[href*="/card-search/detail/"]');
+      if(!a) return;
+      const idM=a.href.match(/\/card-search\/detail\/(\d+)\/?/);
+      if(!idM) return;
+      const card_id=idM[1];
+      const qty=parseInt(a.textContent.trim().match(/(\d+)\s*$/)?.[1]||'1');
+      cards.push({card_id, qty, section:sec});
+    });
+  });
 
-  while (i < lines.length) {
-    const line = lines[i];
+  return cards;
+}
 
-    // 跳過分類標題行
-    if (/^(寶可夢|訓練師|物品|支援者|競技場|能量|道具)/.test(line) && /[\(（]/.test(line)) {
-      i++; continue;
-    }
+function buildDeckListFromFetch(cards){
+  deckList=[];
+  cards.forEach(c=>{
+    const csv=cardDB.find(r=>String(r.card_id)===String(c.card_id));
+    deckList.push({
+      name:      csv?.name      || '未知卡牌 #'+c.card_id,
+      count:     c.qty,
+      cardType:  csv?.card_type || guessTypeFromSection(c.section),
+      imageUrl:  csv?.image_url || '',
+      hp:        csv?.hp        || '',
+      setName:   csv?.set_name  || '',
+      found:     !!csv,
+    });
+  });
+}
 
-    // 嘗試解析一組三行：卡名 / 編號 / 張數
-    if (i + 2 < lines.length) {
-      const nameLine  = lines[i];
-      const codeLine  = lines[i+1];
-      const countLine = lines[i+2];
+function guessTypeFromSection(sec){
+  if(!sec) return '未知';
+  if(sec.includes('寶可夢')) return '基礎';
+  if(sec.includes('能量'))   return '基本能量卡';
+  return '物品卡';
+}
 
-      const isCode  = /^[A-Za-z0-9\-]+\s+[\w\-\/]+/.test(codeLine);
-      const isCount = /^\d{1,2}$/.test(countLine);
+// ═══════════════════════════════════════════════
+// 方法B：貼上清單解析
+// ═══════════════════════════════════════════════
+async function parsePaste(){
+  const raw=document.getElementById('deckInput').value.trim();
+  if(!raw){ showErr('請先貼上牌組清單'); return; }
 
-      if (isCode && isCount) {
-        const count = parseInt(countLine);
-        const cardInfo = findCard(nameLine);
+  const ok=await loadCardDB();
+  if(!ok) return;
+
+  hideErr();
+  deckList=[];
+
+  const lines=raw.split('\n').map(l=>l.trim()).filter(l=>l);
+  let i=0;
+  while(i<lines.length){
+    const line=lines[i];
+    if(/^(寶可夢|訓練師|物品|支援者|競技場|能量|道具)/.test(line)&&/[\(（]/.test(line)){i++;continue;}
+    if(i+2<lines.length){
+      const nameLine=lines[i], codeLine=lines[i+1], countLine=lines[i+2];
+      const isCode=/^[A-Za-z0-9\-]+\s+[\w\-\/]+/.test(codeLine);
+      const isCount=/^\d{1,2}$/.test(countLine);
+      if(isCode&&isCount){
+        const count=parseInt(countLine);
+        const csv=findCard(nameLine);
         deckList.push({
-          name:     nameLine,
-          count:    count,
-          cardType: cardInfo ? cardInfo.card_type : '未知',
-          imageUrl: cardInfo ? cardInfo.image_url : '',
-          hp:       cardInfo ? cardInfo.hp : '',
-          setName:  cardInfo ? cardInfo.set_name : '',
-          found:    !!cardInfo,
+          name:nameLine, count,
+          cardType: csv?.card_type||'未知',
+          imageUrl: csv?.image_url||'',
+          hp:       csv?.hp||'',
+          setName:  csv?.set_name||'',
+          found:    !!csv,
         });
-        i += 3;
-        continue;
+        i+=3; continue;
       }
     }
     i++;
   }
 
-  if (deckList.length === 0) {
-    showError('❌ 無法解析牌組，請確認格式是否正確');
-    return;
-  }
+  if(!deckList.length){ showErr('❌ 無法解析，請確認格式正確'); return; }
 
-  const total = deckList.reduce((s, c) => s + c.count, 0);
-  document.getElementById('parseStatus').textContent = `✅ 解析完成：${deckList.length} 種卡牌，共 ${total} 張`;
+  const total=deckList.reduce((s,c)=>s+c.count,0);
+  document.getElementById('parseStatus').textContent=`✅ 解析完成：${deckList.length} 種，共 ${total} 張`;
+  finishParse();
+}
 
+function findCard(name){
+  return cardDB.find(c=>c.name===name)
+      || cardDB.find(c=>c.name.trim()===name.trim())
+      || cardDB.find(c=>c.name.includes(name)||name.includes(c.name))
+      || null;
+}
+
+// 解析完成後共用
+function finishParse(){
   buildOverview();
   buildProbTable();
   resetSim();
-
-  // 自動切換到總覽
   switchTab('overview');
 }
 
-function findCard(name) {
-  // 完全符合
-  let found = cardDB.find(c => c.name === name);
-  if (found) return found;
-  // 去頭去尾空白後比對
-  found = cardDB.find(c => c.name.trim() === name.trim());
-  if (found) return found;
-  // 包含比對
-  found = cardDB.find(c => c.name.includes(name) || name.includes(c.name));
-  return found || null;
-}
-
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════
 // 牌組總覽
-// ══════════════════════════════════════════
-function buildOverview() {
-  const pokemon  = deckList.filter(c => ['基礎','1階進化','2階進化'].includes(c.cardType));
-  const trainer  = deckList.filter(c => ['物品卡','支援者卡','競技場卡','寶可夢道具'].includes(c.cardType));
-  const energy   = deckList.filter(c => ['基本能量卡','特殊能量卡'].includes(c.cardType));
-  const unknown  = deckList.filter(c => c.cardType === '未知');
+// ═══════════════════════════════════════════════
+const POKE_TYPES  = new Set(['基礎','1階進化','2階進化']);
+const TRAIN_TYPES = new Set(['物品卡','支援者卡','競技場卡','寶可夢道具']);
+const ENERGY_TYPES= new Set(['基本能量卡','特殊能量卡']);
 
-  const total = deckList.reduce((s,c)=>s+c.count,0);
-  const pCount = pokemon.reduce((s,c)=>s+c.count,0);
-  const tCount = trainer.reduce((s,c)=>s+c.count,0);
-  const eCount = energy.reduce((s,c)=>s+c.count,0);
+function buildOverview(){
+  const poke   = deckList.filter(c=>POKE_TYPES.has(c.cardType));
+  const trainer= deckList.filter(c=>TRAIN_TYPES.has(c.cardType));
+  const energy = deckList.filter(c=>ENERGY_TYPES.has(c.cardType));
+  const other  = deckList.filter(c=>!POKE_TYPES.has(c.cardType)&&!TRAIN_TYPES.has(c.cardType)&&!ENERGY_TYPES.has(c.cardType));
 
-  // 狀態列
-  document.getElementById('statusBar').innerHTML = `
-    <div class="stat-pill"><div class="dot dot-pokemon"></div>寶可夢 ${pCount} 張</div>
-    <div class="stat-pill"><div class="dot dot-trainer"></div>訓練師 ${tCount} 張</div>
-    <div class="stat-pill"><div class="dot dot-energy"></div>能量 ${eCount} 張</div>
+  const pC=sum(poke), tC=sum(trainer), eC=sum(energy), total=deckList.reduce((s,c)=>s+c.count,0);
+  const notFound=deckList.filter(c=>!c.found);
+
+  document.getElementById('statusBar').innerHTML=`
+    <div class="stat-pill"><div class="dot dot-p"></div>寶可夢 ${pC} 張</div>
+    <div class="stat-pill"><div class="dot dot-t"></div>訓練師 ${tC} 張</div>
+    <div class="stat-pill"><div class="dot dot-e"></div>能量 ${eC} 張</div>
     <div class="stat-pill">總計 ${total} 張</div>
-    ${unknown.length ? `<div class="stat-pill" style="color:#e74c3c;">⚠ 未識別 ${unknown.length} 種</div>` : ''}
+    ${notFound.length?`<div class="stat-pill" style="color:#e74c3c;">⚠ 未識別 ${notFound.length} 種</div>`:''}
   `;
 
-  let html = '';
-  if (pokemon.length)  html += buildSection('🔴 寶可夢', pokemon);
-  if (trainer.length)  html += buildSection('🔵 訓練師', trainer);
-  if (energy.length)   html += buildSection('🟡 能量', energy);
-  if (unknown.length)  html += buildSection('⚪ 未識別', unknown);
-
-  document.getElementById('deckOverview').innerHTML = html;
+  let html='';
+  if(poke.length)   html+=buildSection('🔴 寶可夢',poke);
+  if(trainer.length)html+=buildSection('🔵 訓練師',trainer);
+  if(energy.length) html+=buildSection('🟡 能量',energy);
+  if(other.length)  html+=buildSection('⚪ 其他',other);
+  document.getElementById('deckOverview').innerHTML=html;
 }
 
-function buildSection(label, cards) {
-  const count = cards.reduce((s,c)=>s+c.count,0);
-  let cardsHtml = cards.map(c => cardTile(c)).join('');
-  return `
-    <div class="section-label">${label}（${count} 張）</div>
-    <div class="cards-grid">${cardsHtml}</div>
-  `;
+function sum(arr){ return arr.reduce((s,c)=>s+c.count,0); }
+
+function buildSection(label,cards){
+  return `<div class="sec-label">${label}（${sum(cards)} 張）</div>
+    <div class="cards-grid">${cards.map(cardTile).join('')}</div>`;
 }
 
-function cardTile(c) {
-  const imgHtml = c.imageUrl
-    ? `<img class="card-img" src="${c.imageUrl}" alt="${c.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-       <div class="card-img error" style="display:none;">${c.name}</div>`
-    : `<div class="card-img error" style="display:flex;">${c.name}</div>`;
-  return `
-    <div class="card-item tooltip-wrap">
-      <div style="position:relative;">
-        ${imgHtml}
-        <div class="card-count">${c.count}</div>
-      </div>
-      <div class="card-name">${c.name}</div>
-      <div class="tooltip-box">
-        <div class="tname">${c.name}</div>
-        <div class="ttype">${c.cardType}${c.hp ? ' · HP ' + c.hp : ''}</div>
-        <div class="ttype">${c.setName}</div>
-      </div>
-    </div>`;
+function cardTile(c){
+  const img=c.imageUrl
+    ?`<img class="cimg" src="${c.imageUrl}" alt="${esc(c.name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+    :'';
+  const err=`<div class="cimg-err" ${c.imageUrl?'style="display:none"':''}>${esc(c.name)}</div>`;
+  return `<div class="ctile"><div style="position:relative">${img}${err}<div class="ccount">${c.count}</div></div>
+    <div class="cname">${esc(c.name)}</div></div>`;
 }
 
-// ══════════════════════════════════════════
-// 模擬邏輯
-// ══════════════════════════════════════════
-function buildDrawPile() {
-  drawPile = [];
-  deckList.forEach(c => {
-    for (let i = 0; i < c.count; i++) drawPile.push({...c});
-  });
+// ═══════════════════════════════════════════════
+// 模擬
+// ═══════════════════════════════════════════════
+function buildDrawPile(){
+  drawPile=[];
+  deckList.forEach(c=>{ for(let i=0;i<c.count;i++) drawPile.push({...c}); });
   shuffle(drawPile);
 }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=~~(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} }
 
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-}
-
-function drawOpeningHand() {
-  buildDrawPile();
-  hand = [];
-  turn = 0;
-  for (let i = 0; i < 7 && drawPile.length; i++) hand.push(drawPile.pop());
-
+function drawOpeningHand(){
+  buildDrawPile(); hand=[]; turn=0;
+  for(let i=0;i<7&&drawPile.length;i++) hand.push(drawPile.pop());
   addLog('🔀 洗牌完成，抽起手牌 7 張');
-
-  // 判斷有無基礎寶可夢
-  const hasBasic = hand.some(c => c.cardType === '基礎');
-  if (!hasBasic) {
-    document.getElementById('alertMulligan').className = 'alert alert-warning show';
-    document.getElementById('alertMulligan').textContent = '⚠️ 起手牌沒有基礎寶可夢！需要 Mulligan（洗牌重抽）';
+  const hasBasic=hand.some(c=>c.cardType==='基礎');
+  if(!hasBasic){
+    setAlert('alertMulligan','⚠️ 起手牌沒有基礎寶可夢！需要 Mulligan（洗牌重抽）','show');
     addLog('⚠️ 無基礎寶可夢，需 Mulligan');
-  } else {
-    document.getElementById('alertMulligan').className = 'alert';
-  }
-
-  updateSimUI();
+  } else { clearAlert('alertMulligan'); }
+  updateSim();
 }
 
-function drawOne() {
-  if (drawPile.length === 0) { addLog('❌ 牌庫已空！'); return; }
+function drawOne(){
+  if(!drawPile.length){ addLog('❌ 牌庫已空！'); return; }
   turn++;
-  const card = drawPile.pop();
+  const card=drawPile.pop();
   hand.push(card);
   addLog(`第 ${turn} 回合：抽到【${card.name}】`);
-  updateSimUI();
+  updateSim();
 }
 
-function reshuffleAndDraw(n, cardName) {
-  // 把手牌洗回牌庫
-  hand.forEach(c => drawPile.push(c));
+function reshuffleAndDraw(n,label){
+  hand.forEach(c=>drawPile.push(c));
   shuffle(drawPile);
-  hand = [];
-  for (let i = 0; i < n && drawPile.length; i++) hand.push(drawPile.pop());
-  addLog(`⚡ 發動${cardName || ''}：洗回手牌，重新抽 ${n} 張`);
-  updateSimUI();
+  hand=[];
+  for(let i=0;i<n&&drawPile.length;i++) hand.push(drawPile.pop());
+  addLog(`⚡ 發動【${label}】：洗回手牌，重新抽 ${n} 張`);
+  updateSim();
 }
 
-function resetSim() {
-  drawPile = []; hand = []; turn = 0;
-  document.getElementById('handCards').innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">按「重新洗牌」開始</span>';
-  document.getElementById('handCount').textContent = '0 張';
-  document.getElementById('deckCounter').textContent = deckList.reduce((s,c)=>s+c.count,0) || '--';
-  document.getElementById('turnBadge').textContent = '第 0 回合';
-  document.getElementById('simLog').innerHTML = '';
-  document.getElementById('supporterPanel').style.display = 'none';
-  document.getElementById('alertMulligan').className = 'alert';
+function resetSim(){
+  drawPile=[]; hand=[]; turn=0;
+  document.getElementById('handCards').innerHTML='<span style="color:var(--muted);font-size:.78rem">按「洗牌」開始</span>';
+  document.getElementById('handCount').textContent='0 張';
+  document.getElementById('deckCounter').textContent=deckList.reduce((s,c)=>s+c.count,0)||'--';
+  document.getElementById('turnBadge').textContent='第 0 回合';
+  document.getElementById('simLog').innerHTML='';
+  document.getElementById('supporterPanel').style.display='none';
+  clearAlert('alertMulligan');
 }
 
-function updateSimUI() {
-  // 手牌區
-  const hc = document.getElementById('handCards');
-  if (hand.length === 0) {
-    hc.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">手牌為空</span>';
+function updateSim(){
+  // 手牌
+  const hc=document.getElementById('handCards');
+  if(!hand.length){
+    hc.innerHTML='<span style="color:var(--muted);font-size:.78rem">手牌為空</span>';
   } else {
-    hc.innerHTML = hand.map(c => {
-      const isSupporter = Object.keys(SPECIAL_SUPPORTERS).includes(c.name);
-      const imgHtml = c.imageUrl
-        ? `<img class="card-img" src="${c.imageUrl}" alt="${c.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-           <div class="card-img error" style="display:none;">${c.name}</div>`
-        : `<div class="card-img error" style="display:flex;">${c.name}</div>`;
-      return `
-        <div class="card-item ${isSupporter ? 'supporter-active' : ''}">
-          <div style="position:relative;">${imgHtml}</div>
-          <div class="card-name">${c.name}</div>
-        </div>`;
+    hc.innerHTML=hand.map(c=>{
+      const isSup=c.cardType==='支援者卡'&&SPECIAL_SUP[c.name];
+      const img=c.imageUrl
+        ?`<img class="cimg" src="${c.imageUrl}" alt="${esc(c.name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:'';
+      const err=`<div class="cimg-err" ${c.imageUrl?'style="display:none"':''}>${esc(c.name)}</div>`;
+      return `<div class="ctile ${isSup?'sup-glow':''}"><div style="position:relative">${img}${err}</div>
+        <div class="cname">${esc(c.name)}</div></div>`;
     }).join('');
   }
-
-  document.getElementById('handCount').textContent = hand.length + ' 張';
-  document.getElementById('deckCounter').textContent = drawPile.length;
-  document.getElementById('turnBadge').textContent = turn === 0 ? '起手牌' : `第 ${turn} 回合`;
+  document.getElementById('handCount').textContent=hand.length+' 張';
+  document.getElementById('deckCounter').textContent=drawPile.length;
+  document.getElementById('turnBadge').textContent=turn===0?'起手牌':`第 ${turn} 回合`;
 
   // 支援者按鈕
-  const supporters = hand.filter(c => SPECIAL_SUPPORTERS[c.name]);
-  const uniqueSup = [...new Set(supporters.map(c => c.name))];
-
-  if (uniqueSup.length > 0) {
-    document.getElementById('supporterPanel').style.display = 'block';
-    document.getElementById('supporterActions').innerHTML = uniqueSup.map(name => {
-      const s = SPECIAL_SUPPORTERS[name];
-      if (s.needsN) {
-        return `<div class="supporter-btn" style="flex-direction:column; align-items:flex-start; gap:4px;">
-          <span>${s.label}</span>
-          <span class="effect">${s.effect}</span>
-          <div class="n-input" style="margin-top:4px;">
-            <input type="number" id="nVal_${name}" value="4" min="1" max="10">
-            <button class="btn btn-sm btn-secondary" onclick="activateSupporter('${name}')">發動</button>
+  const activeSups=[...new Set(
+    hand.filter(c=>c.cardType==='支援者卡'&&SPECIAL_SUP[c.name]).map(c=>c.name)
+  )];
+  if(activeSups.length){
+    document.getElementById('supporterPanel').style.display='block';
+    document.getElementById('supporterActions').innerHTML=activeSups.map(name=>{
+      const s=SPECIAL_SUP[name];
+      if(s.needsN) return `
+        <div class="sup-btn" style="flex-direction:column;align-items:flex-start;gap:3px;">
+          <div>${s.label}</div><div class="sup-eff">${s.eff}</div>
+          <div class="n-row">
+            <input type="number" class="n-input" id="nVal_${name}" value="4" min="1" max="10">
+            <button class="btn btn-sm btn-secondary" onclick="activateSup('${name}')">發動</button>
           </div>
         </div>`;
-      }
-      return `<button class="supporter-btn" onclick="activateSupporter('${name}')">
-        <div>
-          <div>${s.label}</div>
-          <div class="effect">${s.effect}</div>
-        </div>
-        <span style="color:var(--accent);">▶</span>
-      </button>`;
+      return `<button class="sup-btn" onclick="activateSup('${name}')">
+        <div><div>${s.label}</div><div class="sup-eff">${s.eff}</div></div>
+        <span style="color:var(--accent)">▶</span></button>`;
     }).join('');
   } else {
-    document.getElementById('supporterPanel').style.display = 'none';
+    document.getElementById('supporterPanel').style.display='none';
   }
 }
 
-function activateSupporter(name) {
-  const s = SPECIAL_SUPPORTERS[name];
-  // 從手牌移除一張該支援者
-  const idx = hand.findIndex(c => c.name === name);
-  if (idx !== -1) hand.splice(idx, 1);
-
-  if (s.needsN) {
-    const nInput = document.getElementById('nVal_' + name);
-    const n = parseInt(nInput ? nInput.value : 4) || 4;
-    reshuffleAndDraw(n, s.label);
+function activateSup(name){
+  const s=SPECIAL_SUP[name];
+  const idx=hand.findIndex(c=>c.name===name);
+  if(idx!==-1) hand.splice(idx,1);
+  if(s.needsN){
+    const n=parseInt(document.getElementById('nVal_'+name)?.value||4)||4;
+    reshuffleAndDraw(n,'N 的謀劃');
   } else {
-    s.action();
-    addLog(`⚡ 發動【${s.label}】：${s.effect}`);
-    updateSimUI();
+    s.fn();
   }
 }
 
-function addLog(msg) {
-  const log = document.getElementById('simLog');
-  log.innerHTML += `<div>${msg}</div>`;
-  log.scrollTop = log.scrollHeight;
+function addLog(msg){
+  const el=document.getElementById('simLog');
+  el.innerHTML+=`<div>${msg}</div>`;
+  el.scrollTop=el.scrollHeight;
 }
 
-// ══════════════════════════════════════════
-// 機率計算（超幾何分佈）
-// ══════════════════════════════════════════
-function buildProbTable() {
-  const total = deckList.reduce((s,c)=>s+c.count,0);
-  const handSize = 7;
-
-  const body = document.getElementById('probBody');
-  body.innerHTML = deckList.map(c => {
-    const p1 = hypergeomAtLeast(total, c.count, handSize, 1) * 100;
-    const p2 = c.count >= 2 ? hypergeomAtLeast(total, c.count, handSize, 2) * 100 : null;
+// ═══════════════════════════════════════════════
+// 機率
+// ═══════════════════════════════════════════════
+function buildProbTable(){
+  const total=deckList.reduce((s,c)=>s+c.count,0);
+  document.getElementById('probBody').innerHTML=deckList.map(c=>{
+    const p1=(hyperAtLeast(total,c.count,7,1)*100).toFixed(1);
+    const p2=c.count>=2?(hyperAtLeast(total,c.count,7,2)*100).toFixed(1):null;
     return `<tr>
-      <td>${c.name}</td>
-      <td style="color:var(--muted);">${c.count}</td>
-      <td>
-        ${p1.toFixed(1)}%
-        <span class="prob-bar-wrap"><span class="prob-bar" style="width:${p1}%"></span></span>
-      </td>
-      <td>${p2 !== null ? p2.toFixed(1) + '%' : '-'}</td>
+      <td>${esc(c.name)}</td>
+      <td style="color:var(--muted)">${c.count}</td>
+      <td>${p1}%<span class="pbar-wrap"><span class="pbar" style="width:${p1}%"></span></span></td>
+      <td>${p2!==null?p2+'%':'-'}</td>
     </tr>`;
   }).join('');
 }
 
-function hypergeomAtLeast(N, K, n, k) {
-  // P(X >= k) = 1 - P(X < k)
-  let prob = 0;
-  for (let i = 0; i < k; i++) {
-    prob += hypergeomExact(N, K, n, i);
-  }
-  return Math.max(0, Math.min(1, 1 - prob));
+function hyperAtLeast(N,K,n,k){
+  let p=0; for(let i=0;i<k;i++) p+=hyperExact(N,K,n,i);
+  return Math.max(0,Math.min(1,1-p));
+}
+function hyperExact(N,K,n,k){ return comb(K,k)*comb(N-K,n-k)/comb(N,n); }
+function comb(n,k){
+  if(k<0||k>n) return 0; if(k===0||k===n) return 1;
+  k=Math.min(k,n-k); let r=1;
+  for(let i=0;i<k;i++) r=r*(n-i)/(i+1);
+  return r;
 }
 
-function hypergeomExact(N, K, n, k) {
-  return comb(K, k) * comb(N - K, n - k) / comb(N, n);
-}
-
-function comb(n, k) {
-  if (k < 0 || k > n) return 0;
-  if (k === 0 || k === n) return 1;
-  k = Math.min(k, n - k);
-  let result = 1;
-  for (let i = 0; i < k; i++) {
-    result = result * (n - i) / (i + 1);
-  }
-  return result;
-}
-
-// ══════════════════════════════════════════
+// ═══════════════════════════════════════════════
 // UI 工具
-// ══════════════════════════════════════════
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+// ═══════════════════════════════════════════════
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelector(`.tab[onclick="switchTab('${name}')"]`).classList.add('active');
-  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
 }
+function show(id){ document.getElementById(id).style.display='block'; }
+function hide(id){ document.getElementById(id).style.display='none'; }
+function showErr(msg){ const el=document.getElementById('alertErr'); el.textContent=msg; el.className='alert alert-err show'; }
+function hideErr(){ document.getElementById('alertErr').className='alert alert-err'; }
+function setAlert(id,msg,cls){ const el=document.getElementById(id); el.textContent=msg; el.className=`alert alert-warn ${cls}`; }
+function clearAlert(id){ document.getElementById(id).className='alert alert-warn'; }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function showError(msg) {
-  const el = document.getElementById('alertError');
-  el.textContent = msg;
-  el.className = 'alert alert-error show';
-}
-
-function hideError() {
-  document.getElementById('alertError').className = 'alert';
-}
-
-function clearAll() {
-  document.getElementById('deckInput').value = '';
-  document.getElementById('parseStatus').textContent = '';
-  hideError();
-  deckList = [];
-}
+// Enter 觸發查詢
+document.getElementById('codeInput').addEventListener('keydown',e=>{ if(e.key==='Enter') fetchDeck(); });
 </script>
-
 </body>
 </html>
