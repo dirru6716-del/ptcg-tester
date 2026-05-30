@@ -901,10 +901,11 @@ function evolveFromHand(idx){
   showSelectModal('選擇要進化的寶可夢',allPoke,1,sel=>{
     const t=sel[0]; const p=t._zone==='active'?activeSlot:benchSlots[t._bidx];
     if(p){
+      const prevHp=p.hp, prevMaxHp=p.maxHp;
       const newHp=parseInt(c.hp)||p.maxHp;
       p.name=c.name; p.imageUrl=c.imageUrl; p.cardType=c.cardType;
-      p.abilities=c.abilities; p.attacks=c.attacks; p.maxHp=newHp; p.hp=Math.min(p.hp,newHp);
-      hand.splice(idx,1); addLog(`🔆 進化為 ${c.name}`);
+      p.abilities=c.abilities; p.attacks=c.attacks; p.maxHp=newHp; p.hp=Math.max(0, newHp-(prevMaxHp-prevHp));
+      hand.splice(idx,1); addLog(`🔆 進化為 ${c.name}（HP ${p.hp}/${newHp}）`);
     }
     closeModal(); renderAll();
   });
