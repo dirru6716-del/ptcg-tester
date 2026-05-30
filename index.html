@@ -246,7 +246,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
   <!-- controls -->
   <div class="sim-controls">
     <button class="btn btn-primary btn-sm" onclick="startGame()">🔀 開始/重新洗牌</button>
-    <button class="btn btn-blue btn-sm" onclick="drawOne()">➕ 抽一張</button>
+    <button class="btn btn-blue btn-sm" onclick="drawOne()">➕ 手動抽一張</button>
     <button class="btn btn-secondary btn-sm" onclick="endTurn()">⏩ 結束回合</button>
     <span class="turn-badge" id="turnBadge">準備中</span>
     <span class="supporter-used" id="supUsed"></span>
@@ -552,14 +552,27 @@ function startGame(){
 }
 
 function endTurn(){
+  // 我方回合結束：結算狀態異常傷害
+  addLog(`───── 第 ${turn} 回合結束 ─────`);
+  [activeSlot,...benchSlots].filter(Boolean).forEach(p=>{
+    if(p.status.includes('poison')){ p.hp=Math.max(0,p.hp-10); addLog(`🟣 ${p.name} 中毒受到10傷害`); }
+    if(p.status.includes('burn')){ p.hp=Math.max(0,p.hp-20); addLog(`🔴 ${p.name} 灼傷受到20傷害`); }
+  });
+  // 睡眠/麻痺：回合結束自動解除（簡化規則）
+  [activeSlot,...benchSlots].filter(Boolean).forEach(p=>{
+    if(p.status.includes('paralyze')){ p.status=p.status.filter(s=>s!=='paralyze'); addLog(`⚡ ${p.name} 麻痺解除`); }
+  });
   turn++;
   supporterUsedThisTurn=false;
-  [activeSlot,...benchSlots].filter(Boolean).forEach(p=>{
-    if(p.status.includes('poison')){ p.hp=Math.max(0,p.hp-10); addLog(`🟣 ${p.name} 中毒 -10`); }
-    if(p.status.includes('burn')){ p.hp=Math.max(0,p.hp-20); addLog(`🔴 ${p.name} 灼傷 -20`); }
-  });
-  drawOneCard();
-  addLog(`───── 第 ${turn} 回合開始 ─────`);
+  addLog(`─── 對手回合（略） ───`);
+  addLog(`───── 第 ${turn} 回合開始，抽一張牌 ─────`);
+  // 我方新回合開始：抽1張
+  if(drawPile.length){
+    const card=drawPile.pop(); hand.push(card);
+    addLog(`📥 回合開始抽到【${card.name}】`);
+  } else {
+    addLog('❌ 牌庫已空，無法抽牌！');
+  }
   renderAll();
 }
 
@@ -668,6 +681,9 @@ function clickPoke(zone,idx){
   if(p.attacks){
     body+=`<div class="card-effect-box" style="margin-top:6px"><div class="ability-name" style="color:var(--accent)">⚔️ 招式/效果</div><div style="font-size:.7rem;line-height:1.7">${esc(p.attacks)}</div></div>`;
   }
+  // 通用效果偵測（戰鬥場：特性+招式；備戰區：只有特性）
+  const extraPokeFieldBtns = buildEffectButtons(p, -1, zone==='active');
+  if(extraPokeFieldBtns) body += '<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:5px">' + extraPokeFieldBtns + '</div>';
 
   const actions=[];
   if(zone==='bench') actions.push(`<button class="btn btn-sm btn-primary" onclick="switchToActive(${idx})">換上戰鬥場</button>`);
@@ -1022,7 +1038,7 @@ function doUseItem(idx,type){
       const allPoke=[...(activeSlot?[{...activeSlot,_zone:'active',_bidx:-1}]:[]),...benchSlots.map((p,i)=>({...p,_zone:'bench',_bidx:i}))];
       showSelectModal('選擇要進化的寶可夢',allPoke,1,sel2=>{
         const t=sel2[0]; const p=t._zone==='active'?activeSlot:benchSlots[t._bidx];
-        if(p){ const ei=hand.findIndex(h=>h.name===evo.name&&h.cardType==='2階進化'); if(ei>=0) discard.push(hand.splice(ei,1)[0]); const nh=parseInt(evo.hp)||p.maxHp; p.name=evo.name; p.imageUrl=evo.imageUrl; p.cardType=evo.cardType; p.abilities=evo.abilities; p.attacks=evo.attacks; p.maxHp=nh; p.hp=Math.min(p.hp,nh); addLog(`🍬 神奇糖果：進化為${evo.name}`); }
+        if(p){ const ei=hand.findIndex(h=>h.name===evo.name&&h.cardType==='2階進化'); if(ei>=0) discard.push(hand.splice(ei,1)[0]); const nh=parseInt(evo.hp)||p.maxHp; const lost2=p.maxHp-p.hp; p.name=evo.name; p.imageUrl=evo.imageUrl; p.cardType=evo.cardType; p.abilities=evo.abilities; p.attacks=evo.attacks; p.maxHp=nh; p.hp=Math.max(0,nh-lost2); addLog(`🍬 神奇糖果：進化為${evo.name}（HP ${p.hp}/${nh}）`); }
         closeModal(); renderAll();
       });
     }); return;
